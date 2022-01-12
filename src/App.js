@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import Form from './Components/Form/Form';
+import Output from './Components/Output/Output';
+import { useState } from 'react';
 
 function App() {
+  const [data, setData] = useState([]);
+
+  const addUser = (name, age) => {
+    // console.log(data);
+    setData(prevState => {
+      const updated = [...prevState];
+      updated.unshift({ id: Math.random().toString(), user: name, age: age });
+      return updated;
+    })
+  }
+
+  let content = '';
+
+  if (data.length > 0) {
+    content = <Output testdata={data} />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Form test={addUser} />
+      {/* <Output testdata={data} /> */}
+      {content}
+    </>
   );
 }
 
