@@ -5,6 +5,7 @@ import styles from './Form.module.scss';
 function Form(props) {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
+  const [error, setError] = useState();
 
   const textHandler = (e) => {
     // console.log(e.target.value);
@@ -19,9 +20,11 @@ function Form(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     if (parseInt(age) < 1) {
+      setError({ title: 'Invalid input', message: 'Please enter a valid age (>0)' });
       return;
     }
     if (name.trim().length === 0 || age.trim().length === 0) {
+      setError({ title: 'Invalid input', message: 'Please enter a valid name and age (non-empty values)' });
       return;
     }
     props.test(name, age);
@@ -29,9 +32,16 @@ function Form(props) {
     setAge('');
   }
 
+  const errorHandler = () => {
+    setError(null);
+  }
+
   return (
     <>
-      <Alert title='An error occured!' message='something went wrong!' />
+      {
+        error ? <Alert title={error.title} message={error.message} onConfirm={errorHandler} /> : null
+      }
+      {/* <Alert title='An error occured!' message='something went wrong!' /> */}
       <form className={styles.form} onSubmit={submitHandler}>
         <div className={styles['form__container']}>
           <label htmlFor="username"
