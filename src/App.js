@@ -11,6 +11,9 @@ function App() {
       const updated = [...prevState];
       updated.unshift({ id: Math.random().toString(), user: name, age: age });
       return updated;
+
+      // return [...prevState, {id: Math.random().toString(), user:name, age: age}];
+
     })
   }
 

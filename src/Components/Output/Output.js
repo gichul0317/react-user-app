@@ -1,4 +1,5 @@
 import styles from './Output.module.scss';
+import Card from '../Card/Card';
 
 function Output(props) {
 

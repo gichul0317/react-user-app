@@ -18,37 +18,45 @@ function Form(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (name.trim().length > 0 && age.trim().length > 0) {
-      props.test(name, age);
+    if (parseInt(age) < 1) {
+      return;
     }
+    if (name.trim().length === 0 || age.trim().length === 0) {
+      return;
+    }
+    props.test(name, age);
     setName('');
     setAge('');
   }
 
   return (
-    <form className={styles.form} onSubmit={submitHandler}>
-      <div className={styles['form__container']}>
-        <label htmlFor="username"
-          className={styles['form__label']}
-        >Username</label>
-        <input type="text" name="username"
-          className={styles['form__input']}
-          onChange={textHandler}
-          value={name}
-        />
-        <label htmlFor="age"
-          className={styles['form__label']}
-        >Age (Years)</label>
-        <input type="number" name="age"
-          className={styles['form__input']}
-          onChange={ageHandler}
-          value={age}
-        />
-        <button type='submit'
-          className={styles['form__button']}
-        >Add User</button>
-      </div>
-    </form>
+    <>
+      <Alert title='An error occured!' message='something went wrong!' />
+      <form className={styles.form} onSubmit={submitHandler}>
+        <div className={styles['form__container']}>
+          <label htmlFor="username"
+            className={styles['form__label']}
+          >Username</label>
+          <input type="text" name="username"
+            className={styles['form__input']}
+            onChange={textHandler}
+            value={name}
+          />
+          <label htmlFor="age"
+            className={styles['form__label']}
+          >Age (Years)</label>
+          <input type="number" name="age"
+            className={styles['form__input']}
+            onChange={ageHandler}
+            value={age}
+          />
+          <button type='submit'
+            className={styles['form__button']}
+          >Add User</button>
+        </div>
+      </form>
+    </>
+
   )
 }
 
