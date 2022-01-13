@@ -1,36 +1,44 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Alert from '../Alert/Alert';
-import styles from './Form.module.scss';
 import Wrapper from '../Helpers/Wrapper';
+import styles from './Form.module.scss';
 
 function Form(props) {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
+  // const [name, setName] = useState('');
+  // const [age, setAge] = useState('');
   const [error, setError] = useState();
 
-  const textHandler = (e) => {
-    // console.log(e.target.value);
-    setName(e.target.value);
-  }
+  // const textHandler = (e) => {
+  //   // console.log(e.target.value);
+  //   setName(e.target.value);
+  // }
 
-  const ageHandler = (e) => {
-    // console.log(e.target.value);
-    setAge(e.target.value);
-  }
+  // const ageHandler = (e) => {
+  //   // console.log(e.target.value);
+  //   setAge(e.target.value);
+  // }
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (parseInt(age) < 1) {
+    // console.log(nameInputRef.current.value);
+    const enteredName = nameInputRef.current.value;
+    const enteredAge = ageInputRef.current.value;
+    if (parseInt(enteredAge) < 1) {
       setError({ title: 'Invalid input', message: 'Please enter a valid age (>0)' });
       return;
     }
-    if (name.trim().length === 0 || age.trim().length === 0) {
+    if (enteredName.trim().length === 0 || enteredAge.trim().length === 0) {
       setError({ title: 'Invalid input', message: 'Please enter a valid name and age (non-empty values)' });
       return;
     }
-    props.test(name, age);
-    setName('');
-    setAge('');
+    props.test(enteredName, enteredAge);
+    // setName('');
+    // setAge('');
+    nameInputRef.current.value = '';
+    ageInputRef.current.value = '';
   }
 
   const errorHandler = () => {
@@ -50,16 +58,18 @@ function Form(props) {
           >Username</label>
           <input type="text" name="username"
             className={styles['form__input']}
-            onChange={textHandler}
-            value={name}
+            // onChange={textHandler}
+            // value={name}
+            ref={nameInputRef}
           />
           <label htmlFor="age"
             className={styles['form__label']}
           >Age (Years)</label>
           <input type="number" name="age"
             className={styles['form__input']}
-            onChange={ageHandler}
-            value={age}
+            // onChange={ageHandler}
+            // value={age}
+            ref={ageInputRef}
           />
           <button type='submit'
             className={styles['form__button']}
