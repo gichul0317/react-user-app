@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Alert from '../Alert/Alert';
 import styles from './Form.module.scss';
+import Wrapper from '../Helpers/Wrapper';
 
 function Form(props) {
   const [name, setName] = useState('');
@@ -37,7 +38,7 @@ function Form(props) {
   }
 
   return (
-    <>
+    <Wrapper>
       {
         error ? <Alert title={error.title} message={error.message} onConfirm={errorHandler} /> : null
       }
@@ -65,7 +66,7 @@ function Form(props) {
           >Add User</button>
         </div>
       </form>
-    </>
+    </Wrapper>
 
   )
 }
