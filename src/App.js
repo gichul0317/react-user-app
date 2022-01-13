@@ -1,6 +1,6 @@
 import Form from './Components/Form/Form';
 import Output from './Components/Output/Output';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
   const [data, setData] = useState([]);
@@ -24,11 +24,11 @@ function App() {
   }
 
   return (
-    <>
+    <React.Fragment>
       <Form test={addUser} />
       {/* <Output testdata={data} /> */}
       {content}
-    </>
+    </React.Fragment>
   );
 }
 
